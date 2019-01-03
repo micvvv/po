@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorinterval="300" status="debug" name="po" strict="true">
+
+    <Properties>
+        <Property name="filePath">${env:LOG_ROOT}</Property>
+        <Property name="filename">${env:LOG_ROOT}/po
+        </Property>
+        <property name="logSize">10 MB</property>
+    </Properties>
+    
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{ISO8601}] [%t] [%-5p][%c:] %m%n"/>
+        </Console>
+            
+        <RollingFile name="RollingFileRegular" fileName="${filename}.log"
+            filePattern="${filePath}/${filename}-%d{yyyy-dd-MM}-%i.log">
+            <Filters>
+                <MarkerFilter marker="SQL" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+            <PatternLayout pattern="[%d{ISO8601}] [%t] [%-5p][%c:] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="${logSize}" />
+            </Policies>
+        </RollingFile>
+        
+        <RollingFile name="RollingFileError" 
+            fileName="${filename}_error.log"
+            filePattern="${filePath}/${filename}_error-%d{yyyy-dd-MM}-%i.log"
+            immediateFlush="true">
+            <PatternLayout pattern="[%d{ISO8601}] [%t] [%-5p][%c:] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="${logSize}" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <AsyncLogger name="com" level="trace">
+            <AppenderRef ref="RollingFileRegular"/>
+        </AsyncLogger>
+        
+        <Root includeLocation="true" level="trace">
+        	<AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="RollingFileError" level="error" />
+        </Root>
+        
+    </Loggers>
+</Configuration>

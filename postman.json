@@ -1,0 +1,62 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "35efe230-964b-4d12-8cb2-3b4a24c44ff6",
+			"name": "PO",
+			"description": "Production Order API",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"31f90ba9-2414-4d62-a083-85f39b24e1d3"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
+				{
+					"id": "31f90ba9-2414-4d62-a083-85f39b24e1d3",
+					"name": "create PO",
+					"url": "",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "35efe230-964b-4d12-8cb2-3b4a24c44ff6",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "9fbfa74a-f8d7-41a0-a72c-f5250c76c4f5",
+			"name": "Local Dev",
+			"values": [
+				{
+					"key": "base_url",
+					"value": "http://localhost:8080",
+					"type": "text",
+					"description": "",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "6da629b8-6a5d-44fd-bac8-3aa8ca051742",
+			"name": "My Workspace - globals",
+			"values": []
+		}
+	],
+	"headerPresets": [],
+	"globals": []
+}
