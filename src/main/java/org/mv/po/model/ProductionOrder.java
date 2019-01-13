@@ -59,38 +59,33 @@ public class ProductionOrder implements Serializable {
         /** order has been completed */
         FINISHED;
         
+        private final static Status[][] validTransitions =  {
+            {NEW, RUNNING},
+            {RUNNING, STOPPED},
+            {STOPPED, RUNNING},
+            {RUNNING, FINISHED}
+        };
+        
         public static boolean isValidTransition(Status fromStatus, Status toStatus) {
-            //TODO: implement using a list of possible transitions (or a basic state-machine lib)
+            // TODO: implement using a list of possible transitions (or a basic state-machine lib)
             if (null == toStatus) {
                 return false;
             }
-            
-            //initialization with any status should be possible
+
+            // initialization with any status should be possible
             if (null == fromStatus) {
                 return true;
             }
-            
-            if (NEW == fromStatus) {
-                return RUNNING == toStatus;
+
+            for (Status[] validTransition : validTransitions) {
+                if (fromStatus == validTransition[0] && toStatus == validTransition[1]) {
+                    return true;
+                }
             }
-            
-            if (RUNNING == fromStatus) {
-                return STOPPED == toStatus
-                    || FINISHED == toStatus;
-            }
-            
-            if (STOPPED == fromStatus) {
-                return RUNNING == toStatus;
-            }
-            
-            // the final status - no transitions are possible from this one
-            if (FINISHED == fromStatus) {
-                return false;
-            }     
-            
+
             return false;
         }
-    }    
+    }   
     
     /** Value-object class containing all the essential parameters for creating a ProductionOrder */
     public static class CreateParams {
